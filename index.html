@@ -65,6 +65,8 @@
         font-size: 12.5px;
         line-height: 12.5px;
         font-weight: bold;
+        border-radius: 3px;
+        margin: 5px 0;
       }
 
       #diff-display {
@@ -72,6 +74,7 @@
         border-radius: 3px;
         padding: 25px 12.5px;
         color: white;
+        margin: 12.5px;
       }
 
       #diff-display h2 {
@@ -84,11 +87,15 @@
         font-size: 3em;
         margin: 12.5px;
         line-height: 1em;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
       }
 
       footer {
         color: #666;
         margin-top: 25px;
+        border-top: 1px solid #999;
+        opacity: 0.6;
+        padding: 25px;
       }
 
       footer a {
@@ -136,9 +143,9 @@
   <footer>
     <h2>What is this?</h2>
 
-    <p>This is a simple web app that allows you to compare the difference between 2 calendar dates and display the difference in either days or months. With thanks to <a href="https://github.com/dbushell/Pikaday">Pikaday</a> and <a href="http://momentjs.com/">Moment.js</a></p>
+    <p><em>How Many Days</em> is a simple web app that allows you to compare the difference between 2 calendar dates and display the difference in either days or months. With thanks to <a href="https://github.com/dbushell/Pikaday">Pikaday</a> and <a href="http://momentjs.com/">Moment.js</a></p>
 
-    <p class="small">Crafted by © 2016 <a href="http://jaredtong.com">Jared Tong</a></p>
+    <p class="small">Crafted by <a href="http://jaredtong.com">Jared Tong</a> 2016</p>
   </footer>
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
@@ -148,12 +155,12 @@
     var pickerDate1 = new Pikaday(
     {
         field: document.getElementById('datepicker-date1'),
-        format: 'Do MMMM YYYY',
+        format: 'D MMMM YYYY',
         firstDay: 1,
         minDate: new Date(1970, 0, 1),
         maxDate: new Date(2020, 12, 31),
         yearRange: [1970,2020],
-        onSelect() {
+        onSelect: function () {
           compareDates(getDiffFormat());
         }
     });
@@ -161,12 +168,12 @@
     var pickerDate2 = new Pikaday(
     {
         field: document.getElementById('datepicker-date2'),
-        format: 'Do MMMM YYYY',
+        format: 'D MMMM YYYY',
         firstDay: 1,
         minDate: new Date(1970, 0, 1),
         maxDate: new Date(2020, 12, 31),
         yearRange: [1970,2020],
-        onSelect() {
+        onSelect: function () {
           compareDates(getDiffFormat());
         }
     });
@@ -185,7 +192,7 @@
 
     pickerDate1.setMoment(moment());
     pickerDate2.setMoment(moment().add(7 ,'days'));
-    formatPicker.addEventListener('change', () => {compareDates(getDiffFormat())})
+    formatPicker.addEventListener('change', function () {compareDates(getDiffFormat())})
   </script>
 </body>
 </html>
