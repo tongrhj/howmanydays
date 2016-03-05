@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>How Many Days - compare the difference between 2 days</title>
+    <meta name="author" content="Jared Tong">
+    <link rel="stylesheet" href="css/pikaday.css">
+    <style media="screen">
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 25px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        align-self: center;
+      }
+
+      #formatpicker {
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: normal;
+        background-color: #fff;
+        border: none;
+      }
+
+      #content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      #content section {
+        flex-grow: 2;
+        padding: 12.5px;
+        min-width: 260px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        margin: 12.5px 0;
+      }
+
+      #content section input {
+        cursor: pointer;
+        display: block;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        border: 0;
+        margin: 0;
+        width: 100%;
+        padding: 12.5px;
+        color: #666;
+        font-size: 25px;
+        line-height: 25px;
+        background: #f5f5f5;
+      }
+
+      #content section label {
+        color: #999;
+        font-size: 12.5px;
+        line-height: 12.5px;
+        font-weight: bold;
+      }
+
+      #diff-display {
+        background: #33aaff;
+        border-radius: 3px;
+        padding: 25px 12.5px;
+        color: white;
+      }
+
+      #diff-display h2 {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #diff-display #diff-count {
+        font-size: 3em;
+        margin: 12.5px;
+        line-height: 1em;
+      }
+
+      footer {
+        color: #666;
+        margin-top: 25px;
+      }
+
+      footer a {
+        text-decoration: none;
+        color: #33aaff;
+      }
+
+      footer a:hover {
+        color: #ff8000;
+      }
+
+    </style>
+</head>
+<body>
+
+  <header>
+    <h1>How Many <select id="formatpicker">
+      <option value="days" selected>Days</option>
+      <option value="months">Months</option>
+    </select> between</h1>
+  </header>
+
+  <div id="content">
+    <section>
+      <label for="datepicker">Date 1</label>
+      <br>
+      <input type="text" id="datepicker-date1">
+      <div id="selected-date1"></div>
+      <br>
+    </section>
+
+    <section>
+      <label for="datepicker">Date 2</label>
+      <br>
+      <input type="text" id="datepicker-date2">
+      <div id="selected-date2"></div>
+      <br>
+    </section>
+  </div>
+
+  <div id="diff-display">
+    <h2>Answer: <span id="diff-count">0</span></h2>
+  </div>
+
+  <footer>
+    <h2>What is this?</h2>
+
+    <p>This is a simple web app that allows you to compare the difference between 2 calendar dates and display the difference in either days or months. With thanks to <a href="https://github.com/dbushell/Pikaday">Pikaday</a> and <a href="http://momentjs.com/">Moment.js</a></p>
+
+    <p class="small">Crafted by © 2016 <a href="http://jaredtong.com">Jared Tong</a></p>
+  </footer>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script src="modules/pikaday.js"></script>
+  <script>
+    var formatPicker = document.getElementById('formatpicker');
+    var pickerDate1 = new Pikaday(
+    {
+        field: document.getElementById('datepicker-date1'),
+        format: 'Do MMMM YYYY',
+        firstDay: 1,
+        minDate: new Date(1970, 0, 1),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [1970,2020],
+        onSelect() {
+          compareDates(getDiffFormat());
+        }
+    });
+
+    var pickerDate2 = new Pikaday(
+    {
+        field: document.getElementById('datepicker-date2'),
+        format: 'Do MMMM YYYY',
+        firstDay: 1,
+        minDate: new Date(1970, 0, 1),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [1970,2020],
+        onSelect() {
+          compareDates(getDiffFormat());
+        }
+    });
+
+    function getDiffFormat () {
+      return formatPicker.value;
+    }
+
+    function compareDates (diffFormat) {
+      var date1 = pickerDate1.getMoment();
+      var date2 = pickerDate2.getMoment();
+      var diffDisplay = document.getElementById('diff-count')
+      var diffInFormat = Math.abs(date1.diff(date2, diffFormat))
+      diffDisplay.textContent = diffInFormat
+    }
+
+    pickerDate1.setMoment(moment());
+    pickerDate2.setMoment(moment().add(7 ,'days'));
+    formatPicker.addEventListener('change', () => {compareDates(getDiffFormat())})
+  </script>
+</body>
+</html>
