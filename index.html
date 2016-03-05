@@ -48,7 +48,6 @@
         cursor: pointer;
         display: block;
         box-sizing: border-box;
-        -moz-box-sizing: border-box;
         outline: none;
         border: 0;
         margin: 0;
@@ -66,7 +65,7 @@
         line-height: 12.5px;
         font-weight: bold;
         border-radius: 3px;
-        margin: 5px 0;
+        margin: 12.5px 0;
       }
 
       #diff-display {
@@ -185,14 +184,14 @@
     function compareDates (diffFormat) {
       var date1 = pickerDate1.getMoment();
       var date2 = pickerDate2.getMoment();
-      var diffDisplay = document.getElementById('diff-count')
-      var diffInFormat = Math.abs(date1.diff(date2, diffFormat))
-      diffDisplay.textContent = diffInFormat
+      var diffDisplay = document.getElementById('diff-count');
+      var diffInFormat = Math.abs(date1.diff(date2, diffFormat));
+      diffDisplay.textContent = diffInFormat;
     }
 
     pickerDate1.setMoment(moment());
     pickerDate2.setMoment(moment().add(7 ,'days'));
-    formatPicker.addEventListener('change', function () {compareDates(getDiffFormat())})
+    formatPicker.addEventListener('change', function () {compareDates(getDiffFormat())});
   </script>
 </body>
 </html>
