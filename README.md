@@ -1,9 +1,5 @@
 # How Many Days
 
-### Calculate the difference between 2 dates
+Useful tool to get the duration between 2 calendar dates in days, months and years.
 
-### Demo: http://howmanydays.surge.sh
-
-####Tools and Libraries:
-1. [Pikaday](https://github.com/dbushell/Pikaday)
-2. [Moment.js](http://momentjs.com/)
+https://howmanydays.surge.sh
