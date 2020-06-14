@@ -112,7 +112,7 @@
 	<section class="app">
 		<h3 class="answer"><span on:click={handleDiffChange}>{formatDiffDuration(diffDuration)}</span></h3>
 
-		<h1 class="seperator">How Many Days between</h1>
+		<h1 class="seperator">Count The Days between</h1>
 
 		<div class="date">
 			<DateInput
@@ -159,8 +159,9 @@
 }
 .answer {
 	font-size: 3.6rem;
+	color: #a49393;
 	background: linear-gradient(71deg,#e8b4b8,#a49393);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 </style>
