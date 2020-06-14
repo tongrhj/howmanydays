@@ -1,0 +1,20 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to Surge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      - name: Installing Surge
+        run: npm install -g surge
+      - name: Deploying
+        run: surge ./public ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
